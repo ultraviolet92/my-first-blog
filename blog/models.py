@@ -1,7 +1,17 @@
 from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import AbstractUser
+
+
+
+class CustomUser(AbstractUser):
+    # add additional fields in here
+    is_student = models.BooleanField('student_status', default=False)
+    #is_teacher = models.BooleanField('teacher status', default=False)
+
+    def __str__(self):
+        return self.email
 
 
 class Post(models.Model):
@@ -17,5 +27,9 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+
+
 
 
