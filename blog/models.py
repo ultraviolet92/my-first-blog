@@ -8,7 +8,7 @@ from django.utils import timezone
 class CustomUser(AbstractUser):
     is_student = models.BooleanField('student_status', default=False)
     is_teacher = models.BooleanField('teacher status', default=False)
-    completedlessons = models.ManyToManyField('Lesson', related_name='students', default=False, blank=True, null=True)
+    completedlessons = models.ManyToManyField('Lesson', related_name='students', blank=True)
 
     
 
