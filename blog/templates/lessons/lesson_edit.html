@@ -1,9 +1,28 @@
 {% extends 'tracks/base.html' %}
 
+
 {% block content %}
-    <h2>New Lesson</h2>
-    <form method="POST" class="lesson-form">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
-    </form>
+    <div class="mdl-grid">
+        <h4>You can create a new Lesson here</h4>
+    </div>
+    <div class="mdl-grid">
+        <p>Remember, you can select any atomic unit of learning from any Open Educational Resource (OER). Please make each lesson a self-contained, atomic unit of content. <br> 
+        	You can combine several Lessons into a Track later.<br> 
+        	<br> 
+        	Some common ones <br>
+        	- <a href="http://rachelfriends.org/previews/rachelpi_64EN_4.0/">The RACHEL library</a><br>
+        	- <a href="https://www.oercommons.org/">The OR Commons</a><br>
+        	- <a href="https://swayam.gov.in/">The SWAYAM platform by the Government of India</a><br>
+        </p>
+
+    </div>
+    
+    <div class="mdl-grid">
+	    <form method="POST" class="lesson-form">{% csrf_token %}
+	        {{ form.as_p }}
+	        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" name="save">Create Lesson</button>
+	    </form>
+	</div>
+
+    
 {% endblock %}

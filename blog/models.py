@@ -9,7 +9,7 @@ class CustomUser(AbstractUser):
     # add additional fields in here
     is_student = models.BooleanField('student_status', default=False)
     is_teacher = models.BooleanField('teacher status', default=False)
-    completedlessons = models.ManyToManyField('Lesson', related_name='students')
+    completedlessons = models.ManyToManyField('Lesson', related_name='students', default=False)
     #    add_form = CustomUserCreationForm
 #    form = CustomUserChangeForm
 #    model = CustomUser
