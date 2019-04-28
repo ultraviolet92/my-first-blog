@@ -107,7 +107,7 @@ def lesson_detail(request, pk):
             post.lesson = lesson
             post.published_date = timezone.now()
             post.save()
-            #return render(request, 'lessons/lesson_detail.html', {'lesson': lesson, 'form':form, 'comments':comments})
+            return render(request, 'lessons/lesson_detail.html', {'lesson': lesson, 'form':form, 'comments':comments, 'completed':completed})
     else:
         form = CommentForm()
     
