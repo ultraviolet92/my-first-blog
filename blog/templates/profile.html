@@ -32,10 +32,10 @@
     {% endfor %}
      </div>
     <div class="fixed-button">
-    {% if request.user.is_teacher %}
+    
             <a href="{% url 'track_list' %}" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
                 See all Available Tracks
             </a>
-    {% endif %}
+    
     </div>
 {% endblock %}
