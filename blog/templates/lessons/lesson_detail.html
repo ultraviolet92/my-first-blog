@@ -1,0 +1,78 @@
+{% extends 'tracks/base.html' %}
+
+{% block content %}
+    <div class="lessons">
+    {% if lesson.published_date %}
+
+
+
+
+	<div class="mdl-grid" >
+
+		        <div class="mdl-cell mdl-cell--3-col">
+		            <div class="demo-card-square mdl-card mdl-shadow--2dp">
+		              <div class="mdl-card__title mdl-card--expand">
+		                <h2 class="mdl-card__title-text">{{ lesson.title }}</h2>
+		              </div>
+		              <div class="mdl-card__supporting-text">
+		                <p>{{ lesson.introduction }}</p>
+		                <a href= {{ lesson.source }}>Source Material</a> 
+		              </div>
+		              <!-- <div class="mdl-card__actions mdl-card--border">
+		                <a href="{% url 'lesson_detail' pk=lesson.pk %}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+		                  See Lesson
+		                </a>
+		              </div> -->
+		            </div>
+		        </div>
+
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="mdl-grid">
+        {% if not completed %}
+        <form action="{% url 'lesson_detail' pk=lesson.pk %}" method="POST" >{% csrf_token %}
+        	<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored fixed-button" name="complete">Mark Lesson as complete</button>
+    	</form>
+    	{% endif %}
+
+    	{% if completed %}
+    	<form action="{% url 'lesson_detail' pk=lesson.pk %}" method="POST" >{% csrf_token %}
+        	<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored fixed-button" name="active">Mark Lesson as Active</button>
+    	</form>
+    	{% endif %}
+    </div>
+
+    
+
+
+    <div class="mdl-grid">
+
+    <h5>Comments</h5>
+    
+    <ul class="demo-list-item mdl-list">
+    	{% for comment in comments %}
+    	  <li class="mdl-list__item mdl-list__item--three-line">
+		    <span class="mdl-list__item-primary-content">
+		      <i class="material-icons mdl-list__item-avatar">person</i>
+		      <span>{{ comment.author }}</span>
+		      <span class="mdl-list__item-text-body">
+		        {{ comment.text }}
+		      </span>
+		    </span>
+		  </li>
+
+		{% endfor %}
+	</ul>
+
+
+    </div>
+    <div class="mdl-grid" >
+    	<form method="POST" class="track-form">{% csrf_token %}
+	        {{ form.as_p }}
+	        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" name="comment">Leave Comment</button>
+	    </form>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,42 @@
+{% extends 'tracks/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="mdl-grid">
+        <h4>All available tracks</h4>
+    </div>
+    <div class="mdl-grid">
+        <p>You can browse through all tracks and sign up for a new track</p>
+    </div>
+    <div class="mdl-grid">
+    {% for track in tracks %}
+
+        <div class="mdl-cell mdl-cell--3-col">
+            <div class="demo-card-square mdl-card mdl-shadow--2dp">
+              <div class="mdl-card__title mdl-card--expand">
+                <h2 class="mdl-card__title-text">{{ track.title }}</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+                {{ track.introduction }}
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+                <a href="{% url 'track_detail' pk=track.pk %}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                  See track
+                </a>
+              </div>
+            </div>
+        </div>
+
+    {% endfor %}
+    </div>
+    <div class="fixed-button">
+    {% if request.user.is_teacher %}
+            
+            <a href="{% url 'track_new' %}" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                <i class="material-icons">add</i>
+            </a>
+    {% endif %}
+    </div>
+
+
+{% endblock %}

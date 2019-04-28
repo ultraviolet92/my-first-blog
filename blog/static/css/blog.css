@@ -1,7 +1,7 @@
-h1 a, h2 a {
-    color: #0246CF;
-}
-
-body {
-    padding-left: 15px;
+.fixed-button {
+	position:fixed;
+/*	margin-bottom: 20px;
+	margin-right: 20px;*/
+	right: 20px;
+	bottom: 20px;
 }

@@ -1,0 +1,26 @@
+{% extends 'tracks/base.html' %}
+
+{% block content %}
+    <div class="mdl-grid">
+        <h4>You can create a new Track here</h4>
+    </div>
+    <div class="mdl-grid">
+        <p>You can browse through all existing Lessons, and add a new one if you need it</p>
+    </div>
+    
+    <div class="mdl-grid">
+	    <form method="POST" class="track-form">{% csrf_token %}
+	        {{ form.as_p }}
+	        <button type="submit" class="save btn btn-default" name="save">Save</button>
+	    </form>
+
+
+    <div class="fixed-button">
+    {% if request.user.is_teacher %}
+            <a href="{% url 'lesson_new' %}" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                Add a new Lesson
+            </a>
+    {% endif %}
+    </div>
+    
+{% endblock %}
