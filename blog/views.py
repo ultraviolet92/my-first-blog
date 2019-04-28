@@ -62,8 +62,10 @@ def profile(request):
 @login_required
 def track_detail(request, pk):
     track = get_object_or_404(Track, pk=pk)
-    lessons = Lesson.objects.filter(tracks__id=track.id).order_by('published_date')
+    
     user = request.user
+    lessons = Lesson.objects.filter(tracks__id=track.id, students=user).order_by('published_date')
+    activelessons = Lesson.objects.filter(tracks__id=track.id).exclude(students=user).order_by('published_date')
 
     #track.students
     #enroll = track.students.contains(students__id=request.user.id)
@@ -84,7 +86,7 @@ def track_detail(request, pk):
         enroll = False
         return render(request, 'profile.html', {'tracks': tracks, 'enroll': enroll, 'user': user})
 
-    return render(request, 'tracks/track_detail.html', {'track': track, 'lessons': lessons, 'enroll': enroll, 'user': user})
+    return render(request, 'tracks/track_detail.html', {'track': track, 'lessons': lessons, 'activelessons': activelessons, 'enroll': enroll, 'user': user})
 
  
 
