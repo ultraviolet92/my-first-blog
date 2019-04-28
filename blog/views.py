@@ -63,6 +63,7 @@ def profile(request):
 def track_detail(request, pk):
     track = get_object_or_404(Track, pk=pk)
     lessons = Lesson.objects.filter(tracks__id=track.id).order_by('published_date')
+    user = request.user
 
     #track.students
     #enroll = track.students.contains(students__id=request.user.id)
@@ -74,18 +75,19 @@ def track_detail(request, pk):
         track.save()
         tracks = Track.objects.filter(students__id=request.user.id).order_by('published_date')
         enroll = True
-        return render(request, 'profile.html', {'tracks': tracks, 'enroll': enroll})
+        return render(request, 'profile.html', {'tracks': tracks, 'enroll': enroll, 'user': user})
 
     elif request.method == "POST" and 'unenroll' in request.POST:
         track.students.remove(request.user)
         track.save()
         tracks = Track.objects.filter(students__id=request.user.id).order_by('published_date')
         enroll = False
-        return render(request, 'profile.html', {'tracks': tracks, 'enroll': enroll})
+        return render(request, 'profile.html', {'tracks': tracks, 'enroll': enroll, 'user': user})
 
-    return render(request, 'tracks/track_detail.html', {'track': track, 'lessons': lessons, 'enroll': enroll})
+    return render(request, 'tracks/track_detail.html', {'track': track, 'lessons': lessons, 'enroll': enroll, 'user': user})
 
  
+
 
 @login_required
 def lesson_detail(request, pk):

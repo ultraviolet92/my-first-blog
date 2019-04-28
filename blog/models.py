@@ -6,17 +6,16 @@ from django.utils import timezone
 
 
 class CustomUser(AbstractUser):
-    # add additional fields in here
     is_student = models.BooleanField('student_status', default=False)
     is_teacher = models.BooleanField('teacher status', default=False)
     completedlessons = models.ManyToManyField('Lesson', related_name='students', default=False)
-    #    add_form = CustomUserCreationForm
-#    form = CustomUserChangeForm
-#    model = CustomUser
-#    list_display = ['email', 'username', 'is_student']
+
+    
 
     def __str__(self):
         return self.email
+
+    
 
 
 class Post(models.Model):
@@ -29,6 +28,10 @@ class Post(models.Model):
     def publish(self):
         self.published_date = timezone.now()
         self.save()
+
+    def is_active(self):
+        self.published_date = timezone.now()
+        return self.text
 
     def __str__(self):
         return self.title
@@ -61,6 +64,9 @@ class Lesson(models.Model):
     def publish(self):
         self.published_date = timezone.now()
         self.save()
+
+    def is_active(self):
+        return self.students
 
     def __str__(self):
         return self.title
